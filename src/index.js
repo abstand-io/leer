@@ -18,12 +18,12 @@ app.use(session({
 }));
 
 // serve static assets from here
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
 // routes
 app.use('/api/places', places);
 
 // serve frontend SPA with static file server
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'index.html')));
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 
 app.listen(port, () => console.log(`[JETZT] Backend running on port ${port}`));
