@@ -58,6 +58,27 @@ main {
 	box-shadow: 0 -15px 20px -20px #333;
 }
 
+.green {
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	background-color: #64C489;
+}
+
+.yellow {
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	background-color: #FFCE00;
+}
+
+.red {
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	background-color: #E96561;
+}
+
 #app {
 	height: 100%;
 }

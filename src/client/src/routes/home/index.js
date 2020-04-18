@@ -6,8 +6,8 @@ export default class Home extends Component {
 
 	search = () => {
 		const query = {
-			radius: 2,
-			filter: 'grocery'
+			r: 2,
+			f: 'grocery'
 		};
 		const q = btoa(JSON.stringify(query)).slice(0, -2);
 		route(`/places/${q}`);

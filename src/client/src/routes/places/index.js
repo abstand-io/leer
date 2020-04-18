@@ -2,16 +2,73 @@ import { h, Component } from 'preact';
 import style from './style';
 
 export default class Places extends Component {
-	showQuery = (query) => {
-		return atob(query + '==');
+
+	constructor() {
+		super();
+		this.state = {
+			loading: true,
+			places: []
+		};
 	}
 
-	// Note: `user` comes from the URL, courtesy of our router
-	render({ query }) {
+	componentDidMount() {
+		const query = atob(this.props.query + '==');
+		console.log(query);
+		setTimeout(() => {
+
+			this.setState({
+				loading: false,
+				places: [
+					{
+						name: 'Lidl',
+						address: 'Vaihiger Str. 115 70567 Stuttgart',
+						status: 'green'
+					},
+					{
+						name: 'Biomarkt Erdi',
+						address: 'Widmaier Str. 110 70567 Stuttgart',
+						status: 'green'
+					},
+					{
+						name: 'Naturgut',
+						address: 'Vaihiger Str. 37 70567 Stuttgart',
+						status: 'green'
+					},
+					{
+						name: 'Rewe',
+						address: 'Widmaier Str. 110 70567 Stuttgart',
+						status: 'yellow'
+					},
+					{
+						name: 'Aldi Süd',
+						address: 'Widmaier Str. 110 70567 Stuttgart',
+						status: 'red'
+					}
+				]
+			})
+		}, 2000);
+	}
+
+	render({ query }, { loading, places }) {
 		return (
 			<div class={style.places}>
 				<h1>Places</h1>
-				<div>{this.showQuery(query)}</div>
+				{ 
+					loading
+					? (<div class={style.loading}>loading</div>)
+					: (<ul>
+							{ places.map(place => (
+									<li>
+										<div class={place.status}></div>
+										<div class={style.place}>
+											<div class={style.placeName}>{place.name}</div>
+											<div class={style.placeAddress}>{place.address}</div>
+										</div>
+									</li>
+								))
+							}
+						</ul>)
+				}
 			</div>
 		);
 	}
