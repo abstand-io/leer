@@ -23,6 +23,9 @@
 	List Background
 	#ffffff
 
+	Yellow Leaf
+	#fff974
+
 **/
 
 
@@ -31,7 +34,7 @@ html, body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background: #FAFAFA;
+	background: #fff;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 400;
 	color: #444;
@@ -41,6 +44,18 @@ html, body {
 
 * {
 	box-sizing: border-box;
+}
+
+main {
+	position: relative;
+	z-index: 60;
+	background-color: #fff;
+	top: 110px;
+	border-radius: 30px;
+	border-left: none;
+	border-bottom: none;
+	bottom: 0px;
+	box-shadow: 0 -15px 20px -20px #333;
 }
 
 #app {

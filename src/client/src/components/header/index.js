@@ -7,6 +7,7 @@ const Header = () => (
 		<h1>
 			<Link activeClassName={style.active} href="/">Jetzt</Link>
 		</h1>
+		<img src="/assets/undraw_social_distancing_2g0u.svg"/>
 	</header>
 );
 

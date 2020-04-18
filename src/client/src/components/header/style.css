@@ -3,46 +3,46 @@
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 56px;
+	height: 142px;
 	padding: 0;
-	background: #673AB7;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	background: #779389;
 	z-index: 50;
+	display: flex;
+	align-items: center;
 }
 
 .header h1 {
-	float: left;
 	margin: 0;
-	padding: 0 15px;
+	padding: 0 30px;
 	font-size: 24px;
-	line-height: 56px;
 	font-weight: 400;
 	color: #FFF;
 }
 
-.header nav {
-	float: right;
-	font-size: 100%;
-}
-
-.header nav a {
+.header h1 a {
 	display: inline-block;
-	height: 56px;
-	line-height: 56px;
-	padding: 0 15px;
-	min-width: 50px;
+	height: 112px;
+	line-height: 112px;
+	margin-bottom: 16px;
 	text-align: center;
-	background: rgba(255,255,255,0);
 	text-decoration: none;
 	color: #FFF;
-	will-change: background-color;
+	transition: opacity .3s;
 }
 
-.header nav a:hover,
-.header nav a:active {
-	background: rgba(0,0,0,0.2);
+.header h1 a:hover {
+	opacity: .7;
 }
 
 .header nav a.active {
 	background: rgba(0,0,0,0.4);
+}
+
+.header img {
+	height: 112px;
+	margin-left: auto;
+	width: 140px;
+	object-position: 0px 0px;
+	object-fit: cover;
+	margin-right: 30px;
 }
