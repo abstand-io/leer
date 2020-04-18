@@ -23,7 +23,7 @@ export default class App extends Component {
 				<main>
 					<Router onChange={this.handleRoute}>
 						<Home path="/" />
-						<Places path="/places" />
+						<Places path="/places/:query" />
 					</Router>
 				</main>
 			</div>
