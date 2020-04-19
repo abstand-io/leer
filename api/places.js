@@ -64,4 +64,4 @@ module.exports = (req, res) => {
       console.log('Error', error.message);
     }
   });
-});
+};
