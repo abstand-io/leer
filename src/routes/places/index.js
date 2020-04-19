@@ -14,40 +14,30 @@ export default class Places extends Component {
 
 	componentDidMount() {
 		const query = atob(this.props.query + '==');
-		console.log(query);
-		setTimeout(() => {
-
+		fetch('/api/places', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				body: query
+			}
+		})
+		.then((response) => response.status === 200 ? response.json() : [])
+		.then((data) => {
 			this.setState({
 				loading: false,
-				places: [
-					{
-						name: 'Lidl',
-						address: 'Vaihiger Str. 115 70567 Stuttgart',
-						status: 'green'
-					},
-					{
-						name: 'Biomarkt Erdi',
-						address: 'Widmaier Str. 110 70567 Stuttgart',
-						status: 'green'
-					},
-					{
-						name: 'Naturgut',
-						address: 'Vaihiger Str. 37 70567 Stuttgart',
-						status: 'green'
-					},
-					{
-						name: 'Rewe',
-						address: 'Widmaier Str. 110 70567 Stuttgart',
-						status: 'yellow'
-					},
-					{
-						name: 'Aldi Süd',
-						address: 'Widmaier Str. 110 70567 Stuttgart',
-						status: 'red'
-					}
-				]
-			})
-		}, 2000);
+				places: data
+			});
+		});
+	}
+
+	toStatus(percentage) {
+		if (percentage <= 30) {
+			return 'green';
+		}
+		if (percentage <= 60) {
+			return 'yellow';
+		}
+		return 'red';
 	}
 
 	render({ query }, { loading, places }) {
@@ -63,7 +53,7 @@ export default class Places extends Component {
 										<div class={place.status}></div>
 										<div class={style.place}>
 											<div class={style.placeName}>{place.name}</div>
-											<div class={style.placeAddress}>{place.address}</div>
+											<div class={style.placeAddress}>{place.formatted_address}</div>
 										</div>
 									</li>
 								))

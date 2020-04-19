@@ -7,7 +7,7 @@ export default class Home extends Component {
 		super();
 		this.state = {
 			r: 2,
-			f: 'grocery',
+			f: 'grocery_or_supermarket',
 			lat: 48.596603,
 			lon: 9.414554,
 			geo: false
