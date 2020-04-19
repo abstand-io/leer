@@ -1,34 +1,3 @@
-/**
-
-	Colors:
-
-	Header Background:
-	#ffffff
-
-	Indicator green
-	#64C489
-
-	Indicator yellow
-	#FFCE00
-
-	Indicator red
-	#E96561
-
-	Background list element
-	#F2F2F2
-
-	Text Color
-	#000000
-
-	List Background
-	#ffffff
-
-	Yellow Leaf
-	#fff974
-
-**/
-
-
 html, body {
 	height: 100%;
 	width: 100%;
@@ -106,6 +75,13 @@ main {
 	width: 24px;
 	height: 24px;
 	background-color: #E96561;
+}
+
+.closed {
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	background-color: #333;
 }
 
 #app {

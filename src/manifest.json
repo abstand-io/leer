@@ -1,11 +1,11 @@
 {
-  "name": "jetzt-client",
-  "short_name": "jetzt-client",
+  "name": "jetzt",
+  "short_name": "jetzt",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff",
-  "theme_color": "#673ab8",
+  "background_color": "#779389",
+  "theme_color": "#779389",
   "icons": [
     {
       "src": "/assets/icons/android-chrome-192x192.png",

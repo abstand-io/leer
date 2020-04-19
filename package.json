@@ -1,6 +1,14 @@
 {
   "name": "jetzt",
   "version": "0.0.1",
+  "author": {
+    "name": "Lit Labs",
+    "url": "https://zeit.co/litlabs"
+  },
+  "contributors": [
+    "Sebastian Werler <@zebarto>",
+    "Severin Friede <@seveves>"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "preact build",
@@ -28,8 +36,8 @@
     "sirv-cli": "^0.4.5"
   },
   "dependencies": {
+    "@google/maps": "^1.1.0",
     "axios": "^0.19.2",
-    "busy-hours": "0.0.5",
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1"

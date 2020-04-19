@@ -21,7 +21,7 @@ export default class Home extends Component {
 			lat: this.state.lat,
 			lon: this.state.lon
 		};
-		const q = btoa(JSON.stringify(query)).slice(0, -2);
+		const q = btoa(JSON.stringify(query));
 		route(`/places/${q}`);
 	}
 
