@@ -13,13 +13,13 @@ export default class Places extends Component {
 	}
 
 	componentDidMount() {
-		const query = atob(this.props.query + '==');
+		const query = atob(this.props.query);
 		fetch('/api/places', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				body: query
-			}
+			},
+			body: query
 		})
 		.then((response) => response.status === 200 ? response.json() : [])
 		.then((data) => {
@@ -30,11 +30,14 @@ export default class Places extends Component {
 		});
 	}
 
-	toStatus(percentage) {
-		if (percentage <= 30) {
+	toStatus(now) {
+		if (!now) {
+			return 'closed';
+		}
+		if (now.percentage <= 30) {
 			return 'green';
 		}
-		if (percentage <= 60) {
+		if (now.percentage <= 60) {
 			return 'yellow';
 		}
 		return 'red';
@@ -50,7 +53,7 @@ export default class Places extends Component {
 					: (<ul>
 							{ places.map(place => (
 									<li>
-										<div class={place.status}></div>
+										<div class={this.toStatus(place.now)}></div>
 										<div class={style.place}>
 											<div class={style.placeName}>{place.name}</div>
 											<div class={style.placeAddress}>{place.formatted_address}</div>

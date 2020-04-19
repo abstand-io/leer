@@ -1,4 +1,4 @@
-# jetzt-client
+# jetzt
 
 ## CLI Commands
 
