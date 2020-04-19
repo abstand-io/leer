@@ -18,13 +18,14 @@
 }
 
 .group select {
+	position: relative;
 	display: inline-block;
-  min-width: 16em;
-  padding: 0.5rem;
-  box-shadow: 0 0.125rem 0 rgba(119, 147, 137, 0.3);
-  border: 0.2rem solid #779389;
-  border-radius: 0.25rem;
-  text-transform: uppercase;
-  white-space: nowrap;
+	min-width: 16em;
+	padding: 0.5rem;
+	border: 0.1rem solid #000;
+	border-radius: 0.25rem;
+	text-transform: uppercase;
+	white-space: nowrap;
 	letter-spacing: 0.075em;
+	background: #fff;
 }
