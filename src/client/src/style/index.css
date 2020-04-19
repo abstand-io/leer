@@ -46,6 +46,38 @@ html, body {
 	box-sizing: border-box;
 }
 
+.btn {
+  display: inline-block;
+  min-width: 16em;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 0.125rem 0 rgba(119, 147, 137, 0.3);
+  border: 0.2rem solid #779389;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+	letter-spacing: 0.075em;
+}
+.btn.primary {
+  background: #779389 !important;
+  color: white !important;
+}
+.btn.secondary {
+  background: transparent !important;
+  color: #779389	 !important;
+}
+.btn + .btn {
+  margin-top: 1.3rem;
+}
+@media (min-width: 600px) {
+	.btn {
+    padding: 0.75rem 2rem;
+	}
+	
+  .btn + .btn {
+    margin-top: 0;
+  }
+}
+
 main {
 	position: relative;
 	z-index: 60;

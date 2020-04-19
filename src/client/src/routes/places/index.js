@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style';
+import Loading from '../../components/loading';
 
 export default class Places extends Component {
 
@@ -55,7 +56,7 @@ export default class Places extends Component {
 				<h1>Places</h1>
 				{ 
 					loading
-					? (<div class={style.loading}>loading</div>)
+					? (<Loading />)
 					: (<ul>
 							{ places.map(place => (
 									<li>
@@ -69,6 +70,7 @@ export default class Places extends Component {
 							}
 						</ul>)
 				}
+				{ !loading && places.length === 0 ? <p>No places found.</p> : null}
 			</div>
 		);
 	}
