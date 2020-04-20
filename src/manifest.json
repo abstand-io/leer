@@ -1,6 +1,6 @@
 {
-  "name": "jetzt",
-  "short_name": "jetzt",
+  "name": "leer",
+  "short_name": "leer",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
