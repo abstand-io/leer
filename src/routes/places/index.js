@@ -65,7 +65,9 @@ export default class Places extends Component {
 							</ul>)
 				}
 				{ !loading && places.length === 0 ? <p>Leider ergab unsere Suche keinen Treffer.</p> : null}
-				{ !loading && !geo ? <p>Wir können ohne GPS keine Suche durchführen.</p> : null}
+				{ !loading && !geo
+					? <p>Wir können ohne GPS keine Suche durchführen.</p>
+					: null}
 			</div>
 		);
 	}

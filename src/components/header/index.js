@@ -4,7 +4,9 @@ import style from './style.css';
 
 const Header = ({ text }) => (
 	<header class={style.header}>
-		<img src="/assets/icons8-basket-24-2.png"/>
+		<Link href="/">
+			<img src="/assets/logo.svg"/>
+		</Link>
 		<h1>
 			<Link activeClassName={style.active} href="/">
 				{ text

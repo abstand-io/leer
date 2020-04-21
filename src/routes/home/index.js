@@ -61,7 +61,7 @@ export default class Home extends Component {
 						</select>
 					</div>
 					<div class={style.group}>
-						<button class="btn primary" onClick={this.search}>Go</button>
+						<button class="btn primary" onClick={this.search}>Los geht's</button>
 					</div>
 				</div>
 				<p class={style.safe}>#staysafe</p>
