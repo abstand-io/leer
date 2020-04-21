@@ -2,11 +2,16 @@ import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style.css';
 
-const Header = () => (
+const Header = ({ text }) => (
 	<header class={style.header}>
+		<img src="/assets/icons8-basket-24-2.png"/>
 		<h1>
-			<img src="/assets/undraw_social_distancing_2g0u.svg"/>
-			<Link activeClassName={style.active} href="/">leer</Link>
+			<Link activeClassName={style.active} href="/">
+				{ text
+					? <span class={style.text}>{text}</span>
+					: <span class={style.title}>leer</span>
+				}
+			</Link>
 		</h1>
 	</header>
 );

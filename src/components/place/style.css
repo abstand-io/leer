@@ -1,0 +1,23 @@
+.place {
+  padding: 15px;
+	margin-bottom: 15px;
+	border-radius: 14px;
+	background-color: #F2F2F2;
+	color: #4A4A4A;
+	display: flex;
+	align-items: baseline;
+}
+
+.placeDetails {
+  padding-left: 15px;
+}
+
+.placeName {
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.placeAddress {
+	font-size: 10pt;
+	padding-top: 4px;
+}

@@ -1,12 +1,27 @@
+:root {
+	--background: #fff;
+	--green: #64C489;
+	--yellow: #FFCE00;
+	--red: #E96561;
+	--card-background: #F2F2F2;
+	--text: #4A4A4A;
+	--border: #4A4A4A;
+	--leaf: #fff974;
+	--black: #000;
+	--white: #fff;
+	--grey: #4A4A4A;
+	--cyan: #dafffb;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background: #fff;
+	background: var(--background);
 	font-family: 'SF Pro Text', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	font-weight: 400;
-	color: #000;
+	color: var(--text);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -15,23 +30,32 @@ html, body {
 	box-sizing: border-box;
 }
 
+.lead {
+	font-weight: 300;
+}
+
+.title {
+	font-weight: 300;
+	background-color: var(--cyan);
+}
+
 .btn {
   display: inline-block;
   min-width: 16em;
   padding: 0.5rem 1.5rem;
-  border: 0.2rem solid #000000;
+  border: 0.2rem solid var(--border);
   border-radius: 0.25rem;
   text-transform: uppercase;
   white-space: nowrap;
 	letter-spacing: 0.075em;
 }
 .btn.primary {
-  background: #000000 !important;
-  color: white !important;
+  background: var(--black) !important;
+  color: var(--white) !important;
 }
 .btn.secondary {
   background: transparent !important;
-  color: #779389	 !important;
+  color: var(--grey) !important;
 }
 .btn + .btn {
   margin-top: 1.3rem;
@@ -47,41 +71,39 @@ html, body {
 }
 
 main {
-	position: relative;
-	z-index: 60;
-	background-color: #fff;
-	top: 110px;
-	border-left: none;
-	border-bottom: none;
-	bottom: 0px;
+	padding-top: 65px;
 }
 
 .green {
 	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	background-color: #64C489;
+	width: 12pt;
+	height: 12pt;
+	min-width: 12pt;
+	background-color: var(--green);
 }
 
 .yellow {
 	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	background-color: #FFCE00;
+	width: 12pt;
+	height: 12pt;
+	min-width: 12pt;
+	background-color: var(--yellow);
 }
 
 .red {
 	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	background-color: #E96561;
+	width: 12pt;
+	height: 12pt;
+	min-width: 12pt;
+	background-color: var(--red);
 }
 
 .closed {
 	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	background-color: #333;
+	width: 12pt;
+	height: 12pt;
+	min-width: 12pt;
+	background-color: var(--grey);
 }
 
 #app {

@@ -11,22 +11,3 @@ ul {
 	padding: 0;
 	list-style-type: none;
 }
-
-ul li {
-	padding: 15px;
-	margin-bottom: 15px;
-	border-radius: 30px;
-	background-color: #F2F2F2;
-	color: #4A4A4A;
-	display: flex;
-	align-items: center;
-}
-
-.place {
-	padding-left: 15px;
-}
-
-.placeName {
-	font-size: 16pt;
-	font-weight: bold;
-}

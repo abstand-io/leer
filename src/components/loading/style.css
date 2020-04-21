@@ -14,7 +14,7 @@
   height: 15px;
   border-radius: 15px;
   margin-left: 5px;
-  background-color: #779389;
+  background-color: var(--grey);
 }
 
 .loading .line:nth-last-child(1) {animation: loadingC .7s .1s linear infinite;}
