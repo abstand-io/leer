@@ -57,7 +57,6 @@ export default class Home extends Component {
 						<select value={f} onChange={this.onFilterChange}>
 							<option value="grocery_or_supermarket">Supermärkte</option>
 							<option value="drugstore">Drogerien</option>
-							<option value="grocery_or_supermarket,drugstore">Supermärkte & Drogerien</option>
 						</select>
 					</div>
 					<div class={style.group}>
