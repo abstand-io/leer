@@ -57,7 +57,7 @@ export default class Place extends Component {
   componentDidMount() {
     const week = this.props.place.week;
     const canvas = this.ref.current;
-    if (week) { 
+    if (week) {
       const today = new Date();
       const weekday = today.getDay();
       const weekHours = week[weekday];
@@ -132,7 +132,7 @@ export default class Place extends Component {
     }
   }
 
-  openMaps = (ev) => {
+  openMaps = (ev, placeId) => {
     ev.preventDefault();
     ev.stopPropagation();
     if (
@@ -140,14 +140,9 @@ export default class Place extends Component {
       navigator.platform.indexOf('iPod') != -1 ||
       navigator.platform.indexOf('iPad') != -1
     ) {
-      window.open(
-        'maps://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=[YOUR_LAT],[YOUR_LNG]'
-      );
-    }
-    else {
-      window.open(
-        'https://www.google.com/maps/dir/?api=1&travelmode=driving&layer=traffic&destination=[YOUR_LAT],[YOUR_LNG]'
-      );
+      window.open(`maps://www.google.com/maps/place/?q=place_id:${placeId}`);
+    } else {
+      window.open(`https://www.google.com/maps/place/?q=place_id:${placeId}`);
     }
   };
 
@@ -166,7 +161,10 @@ export default class Place extends Component {
         <div class={collapsed ? style.moreCollapsed : style.more}>
           {place.now ? <span class={style.live}>live</span> : null}
           <canvas ref={this.ref} width="400" height="120"></canvas>
-          <button class="btn primary" onClick={this.openMaps}>
+          <button
+            class="btn primary"
+            onClick={(e) => this.openMaps(e, place.place_id)}
+          >
             Google Maps öffnen
           </button>
         </div>
