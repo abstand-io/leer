@@ -50,8 +50,11 @@ export default class Place extends Component {
   }
 
   toAddress(address) {
-    const lastComma = address.lastIndexOf(',');
-    return address.slice(0, lastComma);
+    if (address) {
+      const lastComma = address.lastIndexOf(',');
+      return address.slice(0, lastComma);
+    }
+    return '-';
   }
 
   componentDidMount() {

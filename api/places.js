@@ -89,7 +89,6 @@ const busyHours = async (place_id, key) => {
     const {
       name,
       formatted_address,
-      place_id,
       geometry: { location },
     } = result;
     const html = await fetch_html(result.url);
@@ -97,23 +96,27 @@ const busyHours = async (place_id, key) => {
       return html;
     }
     return Object.assign(
-      { name, formatted_address, location },
+      { name, formatted_address, location, place_id },
       process_html(html)
     );
   } catch (err) {
-    return { status: 'error', message: 'Error: ' + err.json.status || err };
+    let status = err;
+    if (err.json) {
+      status = err.json.status;
+    }
+    return { status: 'error', message: 'Error: ' + status };
   }
 };
 
 function status(now, week) {
   if (now) {
     if (now.percentage <= 30) {
-      return 100;
+      return 110;
     }
     if (now.percentage <= 60) {
-      return 50;
+      return 60;
     }
-    return 10;
+    return 20;
   }
   if (week) {
     const today = new Date();
