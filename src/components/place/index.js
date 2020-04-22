@@ -138,7 +138,7 @@ export default class Place extends Component {
   openMaps = (ev, placeId) => {
     ev.preventDefault();
     ev.stopPropagation();
-    window.open(`https://www.google.com/maps/place/?q=place_id:${placeId}`);
+    window.open(`https://www.google.com/maps/search/?api=1&query=x&query_place_id=${placeId}`);
   };
 
   render({ place }, { collapsed }) {
