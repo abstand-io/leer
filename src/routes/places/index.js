@@ -29,7 +29,7 @@ export default class Places extends Component {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: query
+					body: JSON.stringify(query)
 				})
 				.then((response) => response.status === 200 ? response.json() : [])
 				.then((data) => {

@@ -11,6 +11,8 @@
 	--white: #fff;
 	--grey: #4A4A4A;
 	--cyan: #dafffb;
+	--lightgrey: #c0c0c0;
+	--font: 'SF Pro Text', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html, body {
@@ -19,7 +21,7 @@ html, body {
 	padding: 0;
 	margin: 0;
 	background: var(--background);
-	font-family: 'SF Pro Text', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-family: var(--font);
 	font-weight: 400;
 	color: var(--text);
 	-webkit-font-smoothing: antialiased;
@@ -48,10 +50,14 @@ html, body {
   text-transform: uppercase;
   white-space: nowrap;
 	letter-spacing: 0.075em;
+	font-family: var(--font);
 }
 .btn.primary {
-  background: var(--black) !important;
-  color: var(--white) !important;
+  background: var(--cyan) !important;
+	color: var(--text) !important;
+  border-radius: 0.5rem;
+	border-color: var(--cyan);
+	font-weight: 500;
 }
 .btn.secondary {
   background: transparent !important;

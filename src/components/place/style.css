@@ -1,12 +1,13 @@
 .place {
-  padding: 15px;
 	margin-bottom: 15px;
 	border-radius: 14px;
 	background-color: #F2F2F2;
 	color: #4A4A4A;
+	padding-bottom: 5px;
 }
 
 .placeHeader {
+  padding: 15px;
 	display: flex;
 	align-items: baseline;
 }
@@ -26,11 +27,32 @@
 }
 
 .more {
-	min-height: 100px;
-	width: 100%;
-	padding-top: 15px;
+	margin: 5px;
+	font-size: 10pt;
+	position: relative;
+	background-color: var(--white);
+	border-radius: 14px;
+}
+
+.more button {
+	margin: 5px;
+	width: calc(100% - 10px);
+}
+
+.more canvas {
+	margin-top: 15px;
 }
 
 .moreCollapsed {
 	display: none;
+}
+
+.live {
+	position: absolute;
+	right: 10px;
+	background-color: var(--cyan);
+	color: var(--grey);
+	border-radius: 10px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
