@@ -32,7 +32,7 @@ export default class Home extends Component {
 		return (
 			<div class={style.home}>
 				<p class="lead">
-					Hi! Wir zeigen dir in welchen Geschäften in deinem Umkreis gerade wieviel lost ist.
+					Hi! Wir zeigen dir in welchen Geschäften in deinem Umkreis gerade wieviel los ist.
 					Dazu benötigen wir deine Geo-Position. Deine Position wird von uns nicht gespeichert oder
 					für andere Zwecke verwendet.
 				</p>
