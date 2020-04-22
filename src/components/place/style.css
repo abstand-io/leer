@@ -28,6 +28,7 @@
 
 .more {
 	margin: 5px;
+	padding: 5px;
 	font-size: 10pt;
 	position: relative;
 	background-color: var(--white);
@@ -35,12 +36,7 @@
 }
 
 .more button {
-	margin: 5px;
-	width: calc(100% - 10px);
-}
-
-.more canvas {
-	margin-top: 15px;
+	width: 100%
 }
 
 .moreCollapsed {

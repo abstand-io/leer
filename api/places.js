@@ -137,7 +137,7 @@ function status(now, week) {
 }
 
 module.exports = (req, res) => {
-  /*testData.sort((a, b) => {
+  testData.sort((a, b) => {
     const statusA = status(a.now, a.week);
     const statusB = status(b.now, b.week);
     if (statusA < statusB) {
@@ -147,8 +147,8 @@ module.exports = (req, res) => {
       return -1;
     }
     return 0;
-  })
-  return res.json(testData);*/
+  });
+  return res.json(testData);
   const { body } = req;
   const search = {
     f: body.f,
