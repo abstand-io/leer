@@ -7,6 +7,10 @@ export default class Home extends Component {
 		super();		
 	}	
 
+	openExternal = () => {
+		window.open('https://paypal.me/zebarto');
+	}
+
 	render(_, { geo, f, r }) {
 		return (
 			<div class={style.credits}>
@@ -32,7 +36,7 @@ export default class Home extends Component {
 				<img src="./assets/undraw_transfer_money_rywa.svg" style="width:50%;margin:auto;"/>
 				
 				<div class={style.group}>
-					<button class="btn primary" onClick={this.search}>Jetzt spenden</button>
+					<button class="btn primary" onClick={this.openExternal}>Jetzt spenden</button>
 				</div>			
 				<p class={style.safe}>#staysafe</p>
 			</div>
