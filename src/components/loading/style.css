@@ -20,6 +20,7 @@
   right: 15px;
   width: 70%;
   z-index: 1;
+  max-width: 400px;
 }
 
 .loading .error a {
