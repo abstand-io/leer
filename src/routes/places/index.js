@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
 import Loading from '../../components/loading';
+import Gps from '../../components/gps';
 import Place from '../../components/place';
 
 export default class Places extends Component {
@@ -43,8 +44,9 @@ export default class Places extends Component {
 			this.setState({
 				geo: false
 			});
+		}, {
+			timeout: 10000
 		});
-		
 	}
 
 	render({ query }, { geo, loading, places }) {
@@ -52,7 +54,7 @@ export default class Places extends Component {
 			<div class={style.places}>
 				{
 					!geo && loading
-					? <p class="title">Bitte aktiviere nun dein GPS.</p>
+					? <Gps />
 					: geo && loading
 						? (<Loading />)
 						: (<ul>
@@ -64,9 +66,9 @@ export default class Places extends Component {
 								}
 							</ul>)
 				}
-				{ !loading && places.length === 0 ? <p>Leider ergab unsere Suche keinen Treffer.</p> : null}
+				{ !loading && geo && places.length === 0 ? <Loading error={true} /> : null}
 				{ !loading && !geo
-					? <p>Wir können ohne GPS keine Suche durchführen.</p>
+					? <Gps error={true} />
 					: null}
 			</div>
 		);
