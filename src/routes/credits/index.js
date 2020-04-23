@@ -1,5 +1,4 @@
 import { h, Component } from 'preact';
-import { route } from 'preact-router';
 import style from './style';
 
 export default class Home extends Component {
@@ -11,7 +10,7 @@ export default class Home extends Component {
 		window.open('https://paypal.me/zebarto');
 	}
 
-	render(_, { geo, f, r }) {
+	render() {
 		return (
 			<div class={style.credits}>
 				<p class="lead">

@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import style from './style';
 import { getFavorites } from '../../utils/local';
+import { Link } from 'preact-router/match';
 
 export default class Home extends Component {
 	constructor() {
@@ -82,6 +83,7 @@ export default class Home extends Component {
 					</div>
 				</div>
 				<p class={style.safe}>#staysafe</p>
+				<Link href="/credits">Credits</Link>
 			</div>
 		);
 	}

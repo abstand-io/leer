@@ -17,6 +17,10 @@
 	width: 100%;
 }
 
+.request .group:last-child {
+	margin-bottom: 20px;
+}
+
 .group {
 	display: flex;
 	flex-direction: column;
@@ -47,7 +51,18 @@
 	background: #fff;
 }
 
-.safe {
-	margin-top: 50px;
+p.safe {
 	font-size: 20pt;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.home a {
+	color: var(--text);
+}
+
+.home a:focus,
+.home a:active,
+.home a:hover {
+	color: var(--text);
 }
