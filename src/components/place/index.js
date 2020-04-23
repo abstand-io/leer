@@ -1,6 +1,7 @@
 import { h, Component, createRef } from 'preact';
 import Chart from 'chart.js';
 import style from './style';
+import { getFavorites, toggleFavorite } from '../../utils/local';
 
 export default class Place extends Component {
   ref = createRef();
@@ -9,6 +10,7 @@ export default class Place extends Component {
     super();
     this.state = {
       collapsed: true,
+      favorite: false
     };
   }
 
@@ -18,7 +20,12 @@ export default class Place extends Component {
     });
   };
 
-  toStatus(now, week) {
+  toStatus(place) {
+    if (place.opening_hours && !place.opening_hours.open_now) {
+      return 'closed';
+    }
+    const now = place.now;
+    const week = place.week;
     if (now) {
       if (now.percentage <= 30) {
         return 'green';
@@ -50,6 +57,10 @@ export default class Place extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      favorite: this.isFavorite(this.props.place)
+    });
+
     const week = this.props.place.week;
     const canvas = this.ref.current;
     if (week) {
@@ -127,20 +138,38 @@ export default class Place extends Component {
     }
   }
 
+  toggleFav(ev, place) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.setState({
+      favorite: toggleFavorite(place)
+    });
+  }
+
   openMaps = (ev, placeId) => {
     ev.preventDefault();
     ev.stopPropagation();
     window.open(`https://www.google.com/maps/search/?api=1&query=x&query_place_id=${placeId}`);
   };
 
-  render({ place }, { collapsed }) {
+  isFavorite = (place) => getFavorites().some(f => f.place_id === place.place_id);
+
+  render({ place }, { collapsed, favorite }) {
     return (
       <div class={style.place} onClick={this.toggleCollapsed}>
         <div class={style.placeHeader}>
-          <div class={this.toStatus(place.now, place.week)}></div>
+          <div class={this.toStatus(place)}></div>
           <div class={style.placeDetails}>
             <div class={style.placeName}>{place.name}</div>
             <div class={style.placeAddress}>{place.vicinity || '-'}</div>
+            { favorite
+              ? <button class={style.fav} onClick={(ev) => this.toggleFav(ev, place)}>
+                  <img src="/assets/fav.svg"/>
+                </button>
+              : <button class={style.notfav} onClick={(ev) => this.toggleFav(ev, place)}>
+                  <img src="/assets/fav.svg"/>
+                </button>
+            }
           </div>
         </div>
         <div class={collapsed ? style.moreCollapsed : style.more}>

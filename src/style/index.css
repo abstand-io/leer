@@ -12,6 +12,7 @@
 	--grey: #4A4A4A;
 	--cyan: #dafffb;
 	--lightgrey: #c0c0c0;
+	--pink: #ffe8f1;
 	--font: 'SF Pro Text', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -61,8 +62,11 @@ html, body {
 	font-weight: 500;
 }
 .btn.secondary {
-  background: transparent !important;
-  color: var(--grey) !important;
+  background: var(--pink) !important;
+	color: var(--text) !important;
+  border-radius: 0.5rem;
+	border-color: var(--pink);
+	font-weight: 500;
 }
 .btn + .btn {
   margin-top: 1.3rem;

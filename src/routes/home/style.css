@@ -28,6 +28,12 @@
 	padding-bottom: 10px;
 }
 
+.group p {
+	padding: 10px 0px;
+	margin: 0;
+	text-align: center;
+}
+
 .group select {
 	position: relative;
 	display: inline-block;

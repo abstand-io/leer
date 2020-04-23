@@ -3,6 +3,7 @@ import style from './style';
 import Loading from '../../components/loading';
 import Gps from '../../components/gps';
 import Place from '../../components/place';
+import { getFavorites } from '../../utils/local';
 
 export default class Places extends Component {
 
@@ -23,8 +24,12 @@ export default class Places extends Component {
 				geo: true
 			}, () => {
 				const query = JSON.parse(atob(this.props.query));
-				query.lat = this.state.lat;
-				query.lon = this.state.lon;
+				if (query.favorites) {
+					query.favorites = getFavorites();
+				} else {
+					query.lat = this.state.lat;
+					query.lon = this.state.lon;
+				}
 				fetch('/api/places', {
 					method: 'POST',
 					headers: {

@@ -1,13 +1,15 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import style from './style';
+import { getFavorites } from '../../utils/local';
 
 export default class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
 			r: 500,
-			f: 'grocery_or_supermarket'
+			f: 'grocery_or_supermarket',
+			favorites: getFavorites()
 		};
 	}
 
@@ -15,6 +17,14 @@ export default class Home extends Component {
 		const query = {
 			r: this.state.r,
 			f: this.state.f
+		};
+		const q = btoa(JSON.stringify(query));
+		route(`/places/${q}`);
+	}
+
+	searchFavorites = () => {
+		const query = {
+			favorites: []
 		};
 		const q = btoa(JSON.stringify(query));
 		route(`/places/${q}`);
@@ -28,7 +38,7 @@ export default class Home extends Component {
     this.setState({ f: e.target.value });
   }
 
-	render(_, { geo, f, r }) {
+	render(_, { f, r, favorites }) {
 		return (
 			<div class={style.home}>
 				<p class="lead">
@@ -62,6 +72,13 @@ export default class Home extends Component {
 					</div>
 					<div class={style.group}>
 						<button class="btn primary" onClick={this.search}>Los geht's</button>
+						{ favorites && favorites.length > 0 
+							? <div class={style.group}>
+									<p>oder direkt</p>
+									<button class="btn secondary" onClick={this.searchFavorites}>Zu deinen Favoriten</button>
+								</div>
+							:	null
+						}
 					</div>
 				</div>
 				<p class={style.safe}>#staysafe</p>
