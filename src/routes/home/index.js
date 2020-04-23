@@ -6,7 +6,7 @@ export default class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
-			r: 1,
+			r: 500,
 			f: 'grocery_or_supermarket'
 		};
 	}
@@ -42,12 +42,13 @@ export default class Home extends Component {
 							<span class="title">In welchem Radius soll gesucht werden?</span>
 						</label>
 						<select value={r} onChange={this.onRadiusChange}>
-							<option value="1">1 km</option>
-							<option value="2">2 km</option>
-							<option value="4">4 km</option>
-							<option value="6">6 km</option>
-							<option value="8">8 km</option>
-							<option value="10">10 km</option>
+							<option value="500">500 m</option>
+							<option value="1000">1 km</option>
+							<option value="2000">2 km</option>
+							<option value="4000">4 km</option>
+							<option value="6000">6 km</option>
+							<option value="8000">8 km</option>
+							<option value="10000">10 km</option>
 						</select>
 					</div>
 					<div class={style.group}>
