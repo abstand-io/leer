@@ -8,15 +8,10 @@ const API_KEY = process.env.API_KEY || 'test';
 const getPlacesUrl = (lat, lon, r, f, key) =>
   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}, ${lon}&radius=${r}&type=${f}&key=${key}`;
 
-const busyHours = async (place_id, key) => {
-  if (!(place_id && key)) {
+const busyHours = async (place, key) => {
+  if (!(place && key)) {
     return { status: 'error', message: 'Place ID / API key missing' };
   }
-
-  const gmaps = require('@google/maps').createClient({
-    key: key,
-    Promise: Promise,
-  });
 
   const format_output = (array) => {
     return {
@@ -84,19 +79,18 @@ const busyHours = async (place_id, key) => {
   };
 
   try {
-    const place = await gmaps.place({ placeid: place_id }).asPromise();
-    const result = place.json.result;
     const {
       name,
-      formatted_address,
+      place_id,
+      vicinity,
       geometry: { location },
-    } = result;
-    const html = await fetch_html(result.url);
+    } = place;
+    const html = await fetch_html(`https://google.com/maps/search/?api=1&query=x&query_place_id=${place.place_id}`);
     if (html.status === 'error') {
       return html;
     }
     return Object.assign(
-      { name, formatted_address, location, place_id },
+      { name, vicinity, location, place_id },
       process_html(html)
     );
   } catch (err) {
@@ -172,7 +166,7 @@ module.exports = (req, res) => {
   })
     .then((response) => {
       const places = response.data.results
-        .map((place) => busyHours(place.place_id, API_KEY));
+        .map((place) => busyHours(place, API_KEY));
       Promise.all(places).then((p) => {
         p.sort((a, b) => {
           const statusA = status(a.now, a.week);

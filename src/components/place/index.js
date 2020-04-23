@@ -49,14 +49,6 @@ export default class Place extends Component {
     return 'closed';
   }
 
-  toAddress(address) {
-    if (address) {
-      const lastComma = address.lastIndexOf(',');
-      return address.slice(0, lastComma);
-    }
-    return '-';
-  }
-
   componentDidMount() {
     const week = this.props.place.week;
     const canvas = this.ref.current;
@@ -148,9 +140,7 @@ export default class Place extends Component {
           <div class={this.toStatus(place.now, place.week)}></div>
           <div class={style.placeDetails}>
             <div class={style.placeName}>{place.name}</div>
-            <div class={style.placeAddress}>
-              {this.toAddress(place.formatted_address)}
-            </div>
+            <div class={style.placeAddress}>{place.vicinity || '-'}</div>
           </div>
         </div>
         <div class={collapsed ? style.moreCollapsed : style.more}>
