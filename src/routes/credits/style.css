@@ -1,0 +1,46 @@
+.credits {
+	padding: 5px 30px;
+	min-height: 100%;
+	width: 100%;
+	text-align: justify;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.credits p {
+	margin-bottom: 20px;
+}
+
+.credits a {
+	color: #000;
+}
+
+.credits a:active {
+	color: #111;
+}
+
+.credits a:visited {
+	color: #333;
+}
+
+.credits img {
+	width:50%;
+	margin:20px auto;
+}
+
+.group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.group label {
+	text-align: left;
+	padding-bottom: 10px;
+}
+
+.safe {
+	margin-top: 50px;
+	font-size: 20pt;
+}

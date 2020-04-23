@@ -5,6 +5,7 @@ import Header from './header';
 
 import Home from '../routes/home';
 import Places from '../routes/places';
+import Credits from '../routes/credits';
 
 export default class App extends Component {
 	
@@ -24,6 +25,7 @@ export default class App extends Component {
 					<Router onChange={this.handleRoute}>
 						<Home path="/" />
 						<Places path="/places/:query" />
+						<Credits path="/credits" />
 					</Router>
 				</main>
 			</div>
