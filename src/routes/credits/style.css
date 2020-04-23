@@ -24,6 +24,11 @@
 	color: #333;
 }
 
+.credits img {
+	width:50%;
+	margin:20px auto;
+}
+
 .group {
 	display: flex;
 	flex-direction: column;
