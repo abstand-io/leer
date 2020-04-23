@@ -162,7 +162,7 @@ module.exports = (req, res) => {
   const url = getPlacesUrl(
     search.lat,
     search.lon,
-    search.r * 1000,
+    search.r,
     search.f,
     API_KEY
   );
