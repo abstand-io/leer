@@ -6,7 +6,7 @@ export default class Home extends Component {
 	constructor() {
 		super();
 		this.state = {
-			r: 1,
+			r: 500,
 			f: 'grocery_or_supermarket'
 		};
 	}
