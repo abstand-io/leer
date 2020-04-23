@@ -42,6 +42,7 @@ export default class Places extends Component {
 			});
 		}, (err) => {
 			this.setState({
+				loading: false,
 				geo: false
 			});
 		}, {
