@@ -82,15 +82,15 @@ const busyHours = async (place, key) => {
     const {
       name,
       place_id,
-      formatted_address,
+      vicinity,
       geometry: { location },
     } = place;
-    const html = await fetch_html(place.url);
+    const html = await fetch_html(`https://google.com/maps/search/?api=1&query=x&query_place_id=${place.place_id}`);
     if (html.status === 'error') {
       return html;
     }
     return Object.assign(
-      { name, formatted_address, location, place_id },
+      { name, vicinity, location, place_id },
       process_html(html)
     );
   } catch (err) {
