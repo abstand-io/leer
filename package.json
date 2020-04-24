@@ -38,6 +38,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "localforage": "^1.7.3",
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1"

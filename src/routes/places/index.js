@@ -24,26 +24,34 @@ export default class Places extends Component {
 				geo: true
 			}, () => {
 				const query = JSON.parse(atob(this.props.query));
+				let preQuery = Promise.resolve(query);
 				if (query.favorites) {
-					query.favorites = getFavorites();
+					preQuery = getFavorites().then(favorites => ({
+						...query,
+						favorites
+					}));
 				} else {
-					query.lat = this.state.lat;
-					query.lon = this.state.lon;
-				}
-				fetch('/api/places', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(query)
-				})
-				.then((response) => response.status === 200 ? response.json() : [])
-				.then((data) => {
-					this.setState({
-						loading: false,
-						places: data
+					preQuery = Promise.resolve({
+						...query,
+						lat: this.state.lat,
+						lon: this.state.lon
 					});
-				});
+				}
+				preQuery.then(q => 
+					fetch('/api/places', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(q)
+					})
+					.then((response) => response.status === 200 ? response.json() : [])
+					.then((data) => {
+						this.setState({
+							loading: false,
+							places: data
+						});
+					}));
 			});
 		}, (err) => {
 			this.setState({

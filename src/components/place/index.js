@@ -57,9 +57,9 @@ export default class Place extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      favorite: this.isFavorite(this.props.place)
-    });
+    getFavorites().then(favorites => this.setState({
+      favorite: favorites.some(f => f.place_id === this.props.place.place_id)
+    }));
 
     const week = this.props.place.week;
     const canvas = this.ref.current;
@@ -141,9 +141,7 @@ export default class Place extends Component {
   toggleFav(ev, place) {
     ev.preventDefault();
     ev.stopPropagation();
-    this.setState({
-      favorite: toggleFavorite(place)
-    });
+    toggleFavorite(place).then(favorite => this.setState({ favorite }));
   }
 
   openMaps = (ev, placeId) => {
@@ -151,8 +149,6 @@ export default class Place extends Component {
     ev.stopPropagation();
     window.open(`https://www.google.com/maps/search/?api=1&query=x&query_place_id=${placeId}`);
   };
-
-  isFavorite = (place) => getFavorites().some(f => f.place_id === place.place_id);
 
   render({ place }, { collapsed, favorite }) {
     return (

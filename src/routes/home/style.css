@@ -51,6 +51,12 @@
 	background: #fff;
 }
 
+.footer {
+	position: absolute;
+	bottom: 30px;
+	text-align: center;
+}
+
 p.safe {
 	font-size: 20pt;
 	margin: 0;
