@@ -5,10 +5,10 @@ const Gps = ({ error }) => (
   <div class={style.gps}>
     { error
       ? <p>
-        Schade.<br/>
+        Deine Standortfreigabe ist nicht aktiv.<br/>
         Wir benötigen deinen aktuellen Standort um für dich nach Ladengeschäften
         in der Nähe suchen zu können.<br/><br/>
-        Falls du es dir anders überlegst, kannst du die Freigabe wie folgt erteilen:<br/><br/>
+        Du kannst die Standortfreigabe wie folgt erteilen:<br/><br/>
         iOS:<br/>
         <span>Einstellungen > Safari > Standort</span><br/><br/>
         Android:<br/>
