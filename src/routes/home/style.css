@@ -51,10 +51,16 @@
 	background: #fff;
 }
 
-.footer {
-	position: absolute;
-	bottom: 30px;
+.footer {	
 	text-align: center;
+}
+
+@media only screen 
+    and (min-height : 700px) {
+	.footer {
+		position: absolute;
+		bottom: 30px;
+	}
 }
 
 p.safe {
