@@ -108,7 +108,12 @@ const busyHours = async (place) => {
   }
 };
 
-function status(now, week) {
+function status(place) {
+  if (place.opening_hours && !place.opening_hours.open_now) {
+    return -1;
+  }
+  const now = place.now;
+  const week = place.week;
   if (now) {
     if (now.percentage <= 30) {
       return 110;
@@ -149,7 +154,7 @@ module.exports = (req, res) => {
   if (body.favorites) {
     placesQuery = Promise.resolve({
       data: {
-        results: body.favorites,
+        results: body.favorites.map(f => ({ ...f, opening_hours: { open_now: true } })),
       },
     });
   } else {
@@ -179,8 +184,8 @@ module.exports = (req, res) => {
       Promise.all(places).then((p) => {
         p = p.filter((p) => p.status !== 'error');
         p.sort((a, b) => {
-          const statusA = status(a.now, a.week);
-          const statusB = status(b.now, b.week);
+          const statusA = status(a);
+          const statusB = status(b);
           if (statusA < statusB) {
             return 1;
           }

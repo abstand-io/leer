@@ -1,8 +1,11 @@
 :root {
 	--background: #fff;
-	--green: #64C489;
-	--yellow: #FFCE00;
-	--red: #E96561;
+	--green: rgb(100, 196, 137);
+	--pulsegreen: rgba(100, 196, 137, 0.7);
+	--yellow: rgb(255, 204, 0);
+	--pulseyellow: rgba(255, 204, 0, 0.7);
+	--red: rgb(233, 101, 97);
+	--pulsered: rgba(233, 101, 97, 0.7);
 	--card-background: #F2F2F2;
 	--text: #000;
 	--border: #4A4A4A;
@@ -93,6 +96,11 @@ main {
 	background-color: var(--green);
 }
 
+.greenpulse {
+	box-shadow: 0 0 0 0 var(--green);
+	animation: pulse-green 2s infinite;
+}
+
 .yellow {
 	border-radius: 50%;
 	width: 12pt;
@@ -101,12 +109,23 @@ main {
 	background-color: var(--yellow);
 }
 
+.yellowpulse {
+	box-shadow: 0 0 0 0 var(--yellow);
+	animation: pulse-yellow 2s infinite;
+}
+
 .red {
 	border-radius: 50%;
 	width: 12pt;
 	height: 12pt;
 	min-width: 12pt;
+	transform: scale(1);
 	background-color: var(--red);
+}
+
+.redpulse {
+	box-shadow: 0 0 0 0 var(--red);
+	animation: pulse-red 2s infinite;
 }
 
 .closed {
@@ -115,6 +134,57 @@ main {
 	height: 12pt;
 	min-width: 12pt;
 	background-color: var(--grey);
+}
+
+@keyframes pulse-green {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 var(--pulsegreen);
+	}
+	
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 8px rgba(100, 196, 137, 0);
+	}
+	
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(100, 196, 137, 0);
+	}
+}
+
+@keyframes pulse-red {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 var(--pulsered);
+	}
+	
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 8px rgba(233, 101, 97, 0);
+	}
+	
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(233, 101, 97, 0);
+	}
+}
+
+@keyframes pulse-yellow {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 var(--pulseyellow);
+	}
+	
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 8px rgba(255, 204, 0, 0);
+	}
+	
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(255, 204, 0, 0);
+	}
 }
 
 #app {

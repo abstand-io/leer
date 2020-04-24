@@ -28,12 +28,12 @@ export default class Place extends Component {
     const week = place.week;
     if (now) {
       if (now.percentage <= 30) {
-        return 'green';
+        return 'green greenpulse';
       }
       if (now.percentage <= 60) {
-        return 'yellow';
+        return 'yellow yellowpulse';
       }
-      return 'red';
+      return 'red redpulse';
     }
     if (week) {
       const today = new Date();

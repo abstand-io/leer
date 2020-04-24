@@ -1,4 +1,4 @@
-const STORE = localStorage;
+const STORE = typeof window !== 'undefined' ? window.localStorage : null;
 const NAMESPACE = 'leer.im';
 
 function getItem(key, d) {
