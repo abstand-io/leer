@@ -6,7 +6,7 @@ import Header from './header';
 import Home from '../routes/home';
 import Places from '../routes/places';
 import Credits from '../routes/credits';
-import Supermarket from '../routes/supermarkt';
+import Supermarket from '../routes/supermarket';
 
 
 export default class App extends Component {
