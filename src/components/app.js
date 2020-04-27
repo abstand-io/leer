@@ -6,6 +6,8 @@ import Header from './header';
 import Home from '../routes/home';
 import Places from '../routes/places';
 import Credits from '../routes/credits';
+import Supermarket from '../routes/supermarkt';
+
 
 export default class App extends Component {
 	
@@ -26,6 +28,7 @@ export default class App extends Component {
 						<Home path="/" />
 						<Places path="/places/:query" />
 						<Credits path="/credits" />
+						<Supermarket path="/supermarkt" />
 					</Router>
 				</main>
 			</div>
