@@ -1,9 +1,13 @@
 const axios = require('axios');
+const locale = require('locale');
 
-const API_KEY =
-  process.env.API_KEY || 'test';
-const getPlacesUrl = (lat, lon, r, f, key) =>
-  `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}, ${lon}&radius=${r}&type=${f}&key=${key}`;
+const API_KEY = process.env.API_KEY;
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS.split(',').map(o => o.startsWith('/') ? new RegExp(o.slice(1)) : o);
+const SUPPORTED_LOCALES = new locale.Locales(['en', 'de']);
+
+const getPlacesUrl = (lat, lon, r, f, c, key) => c === 'de' && f === 'hardware_store'
+  ? `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&keyword=baumarkt&key=${key}`
+  : `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&type=${f}&key=${key}`;
 
 const busyHours = async (place) => {
   if (!place) {
@@ -144,7 +148,40 @@ function status(place) {
   return 0;
 }
 
+function isString(s) {
+  return typeof s === 'string' || s instanceof String;
+}
+
+function isOriginAllowed(origin, allowedOrigin) {
+  if (Array.isArray(allowedOrigin)) {
+    for (var i = 0; i < allowedOrigin.length; ++i) {
+      if (isOriginAllowed(origin, allowedOrigin[i])) {
+        return true;
+      }
+    }
+    return false;
+  } else if (isString(allowedOrigin)) {
+    return origin === allowedOrigin;
+  } else if (allowedOrigin instanceof RegExp) {
+    return allowedOrigin.test(origin);
+  } else {
+    return !!allowedOrigin;
+  }
+}
+
+
 module.exports = (req, res) => {
+  const origin = req.headers['origin'];
+  const originAllowed = isOriginAllowed(origin, ALLOWED_ORIGINS);
+  if (!originAllowed) {
+    return res.sendStatus(403);
+  } else {
+    res.setHeader('Access-Control-Request-Method', 'POST');
+    res.setHeader('Access-Control-Request-Headers', origin);
+  }
+
+  const locales = new locale.Locales(req.headers['accept-language']);
+  const bestLocale = locales.best(SUPPORTED_LOCALES);
   const { body } = req;
   let placesQuery = Promise.resolve({
     data: {
@@ -169,6 +206,7 @@ module.exports = (req, res) => {
       search.lon,
       search.r,
       search.f,
+      bestLocale.code,
       API_KEY
     );
     placesQuery = axios({
