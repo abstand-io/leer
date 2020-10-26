@@ -87,6 +87,7 @@ const busyHours = async (place) => {
       geometry: { location },
       opening_hours: { open_now },
     } = place;
+
     const html = await fetch_html(
       `https://google.com/maps/search/?api=1&query=x&query_place_id=${place.place_id}`
     );
@@ -169,7 +170,6 @@ function isOriginAllowed(origin, allowedOrigin) {
   }
 }
 
-
 module.exports = (req, res) => {
   const origin = req.headers['origin'];
   const originAllowed = isOriginAllowed(origin, ALLOWED_ORIGINS);
@@ -211,7 +211,7 @@ module.exports = (req, res) => {
     );
     placesQuery = axios({
       method: 'get',
-      url,
+      url
     });
   }
   placesQuery

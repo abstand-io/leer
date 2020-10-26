@@ -14,3 +14,5 @@ package-lock.json
 ehthumbs.db
 Thumbs.db
 .env
+
+.vercel
