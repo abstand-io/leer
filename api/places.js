@@ -155,6 +155,9 @@ function isString(s) {
 
 function isOriginAllowed(origin, allowedOrigin) {
   if (Array.isArray(allowedOrigin)) {
+    if (allowedOrigin.length === 1 && allowedOrigin[0] === '*') {
+      return true;
+    }
     for (var i = 0; i < allowedOrigin.length; ++i) {
       if (isOriginAllowed(origin, allowedOrigin[i])) {
         return true;
@@ -174,7 +177,7 @@ module.exports = (req, res) => {
   const origin = req.headers['origin'];
   const originAllowed = isOriginAllowed(origin, ALLOWED_ORIGINS);
   if (!originAllowed) {
-    return res.sendStatus(403);
+    return res.status(403).json({ error: 'origin not allowed' });
   } else {
     res.setHeader('Access-Control-Request-Method', 'POST');
     res.setHeader('Access-Control-Request-Headers', origin);
