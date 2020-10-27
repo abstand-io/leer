@@ -23,7 +23,7 @@ export default class Home extends Component {
 					oder Gewährleistung für die Richtigkeit der Daten.
 				</p>
 				<p class="lead">
-					Ein Dank geht an <a href="https://maps.google.com" target="_blank">Google</a>, <a href="https://preactjs.com" target="_blank">preact</a>, <a href="https://undraw.co" target="_blank"> undraw.co</a> und <a href="https://now.sh" target="_blank">now.sh</a>. 
+					Ein Dank geht an <a href="https://maps.google.com" target="_blank">Google</a>, <a href="https://preactjs.com" target="_blank">preact</a>, <a href="https://undraw.co" target="_blank"> undraw.co</a> und <a href="https://vercel.com" target="_blank">Vercel</a>. 
 				</p>
 				<p class="lead">
 					Die Nutzung ist für Euch kostenfrei. Der Betrieb von
