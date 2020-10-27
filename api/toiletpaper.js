@@ -74,7 +74,9 @@ module.exports = (req, res) => {
     return res.status(403).json({ error: 'origin not allowed' });
   } else {
     res.setHeader('Access-Control-Request-Method', 'GET');
-    res.setHeader('Access-Control-Request-Headers', origin);
+    if (origin) {
+      res.setHeader('Access-Control-Request-Headers', origin);
+    }
   }
   const { query } = req;
 
