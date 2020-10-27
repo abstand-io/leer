@@ -77,3 +77,38 @@
 	opacity: 0.3;
 	padding: 0;
 }
+
+.toiletpaper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+}
+
+.toiletpaper img {
+	width: 50px;
+	height: 50px;
+}
+
+.toiletpaper p {
+	font-size: 48px;
+	margin: 0;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+
+.bounce {
+	animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.noBounce {
+	animation-name: unset;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  50% { transform: scale(0.85); }
+  to { transform: scale(1); }
+}

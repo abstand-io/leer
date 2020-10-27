@@ -1,6 +1,8 @@
 import { h, Component, createRef } from 'preact';
 import Chart from 'chart.js';
 import style from './style';
+
+import { CountUp } from '../count-up';
 import { getFavorites, toggleFavorite } from '../../utils/local';
 
 export default class Place extends Component {
@@ -10,14 +12,42 @@ export default class Place extends Component {
     super();
     this.state = {
       collapsed: true,
-      favorite: false
+      favorite: false,
+      toiletPaperAmount: -1,
+      fetching: false
     };
   }
 
   toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+    const collapsed = !this.state.collapsed;
+    if (
+      collapsed === false &&
+      this.props.place.name.indexOf('dm-drogerie') !== -1 &&
+      this.state.toiletPaperAmount === -1
+    ) {
+      this.setState({ collapsed, fetching: true });
+      const query = `/api/toiletpaper?type=dm&place_id=${this.props.place.place_id}`;
+      fetch(query, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) =>
+          response.status === 200 ? response.json() : { amount: -1 }
+        )
+        .then((data) =>
+          this.setState({
+            toiletPaperAmount: data.amount,
+            fetching: false
+          })
+        ).catch(() => this.setState({
+          toiletPaperAmount: -1,
+          fetching: false
+        }));
+    } else {
+      this.setState({ collapsed });
+    }
   };
 
   toStatus(place) {
@@ -57,9 +87,13 @@ export default class Place extends Component {
   }
 
   componentDidMount() {
-    getFavorites().then(favorites => this.setState({
-      favorite: favorites.some(f => f.place_id === this.props.place.place_id)
-    }));
+    getFavorites().then((favorites) =>
+      this.setState({
+        favorite: favorites.some(
+          (f) => f.place_id === this.props.place.place_id
+        ),
+      })
+    );
 
     const week = this.props.place.week;
     const canvas = this.ref.current;
@@ -141,16 +175,18 @@ export default class Place extends Component {
   toggleFav(ev, place) {
     ev.preventDefault();
     ev.stopPropagation();
-    toggleFavorite(place).then(favorite => this.setState({ favorite }));
+    toggleFavorite(place).then((favorite) => this.setState({ favorite }));
   }
 
   openMaps = (ev, placeId) => {
     ev.preventDefault();
     ev.stopPropagation();
-    window.open(`https://www.google.com/maps/search/?api=1&query=x&query_place_id=${placeId}`);
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=x&query_place_id=${placeId}`
+    );
   };
 
-  render({ place }, { collapsed, favorite }) {
+  render({ place }, { collapsed, favorite, toiletPaperAmount, fetching }) {
     return (
       <div class={style.place} onClick={this.toggleCollapsed}>
         <div class={style.placeHeader}>
@@ -158,19 +194,34 @@ export default class Place extends Component {
           <div class={style.placeDetails}>
             <div class={style.placeName}>{place.name}</div>
             <div class={style.placeAddress}>{place.vicinity || '-'}</div>
-            { favorite
-              ? <button class={style.fav} onClick={(ev) => this.toggleFav(ev, place)}>
-                  <img src="/assets/fav.svg"/>
-                </button>
-              : <button class={style.notfav} onClick={(ev) => this.toggleFav(ev, place)}>
-                  <img src="/assets/fav.svg"/>
-                </button>
-            }
+            {favorite ? (
+              <button
+                class={style.fav}
+                onClick={(ev) => this.toggleFav(ev, place)}
+              >
+                <img src="/assets/fav.svg" />
+              </button>
+            ) : (
+              <button
+                class={style.notfav}
+                onClick={(ev) => this.toggleFav(ev, place)}
+              >
+                <img src="/assets/fav.svg" />
+              </button>
+            )}
           </div>
         </div>
         <div class={collapsed ? style.moreCollapsed : style.more}>
           {place.now ? <span class={style.live}>live</span> : null}
           <canvas ref={this.ref} width="400" height="120"></canvas>
+          {toiletPaperAmount > -1 || fetching ? (
+            <div class={style.toiletpaper}>
+              <img class={fetching ? style.bounce : style.noBounce} src="/assets/toiletpaper.svg" />
+              <p>
+                { toiletPaperAmount > -1 ? <CountUp>{toiletPaperAmount}</CountUp> : null }
+              </p>
+            </div>
+          ) : null}
           <button
             class="btn primary"
             onClick={(e) => this.openMaps(e, place.place_id)}

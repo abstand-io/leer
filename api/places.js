@@ -87,6 +87,7 @@ const busyHours = async (place) => {
       geometry: { location },
       opening_hours: { open_now },
     } = place;
+
     const html = await fetch_html(
       `https://google.com/maps/search/?api=1&query=x&query_place_id=${place.place_id}`
     );
@@ -154,6 +155,9 @@ function isString(s) {
 
 function isOriginAllowed(origin, allowedOrigin) {
   if (Array.isArray(allowedOrigin)) {
+    if (allowedOrigin.length === 1 && allowedOrigin[0] === '*') {
+      return true;
+    }
     for (var i = 0; i < allowedOrigin.length; ++i) {
       if (isOriginAllowed(origin, allowedOrigin[i])) {
         return true;
@@ -169,12 +173,11 @@ function isOriginAllowed(origin, allowedOrigin) {
   }
 }
 
-
 module.exports = (req, res) => {
   const origin = req.headers['origin'];
   const originAllowed = isOriginAllowed(origin, ALLOWED_ORIGINS);
   if (!originAllowed) {
-    return res.sendStatus(403);
+    return res.status(403).json({ error: 'origin not allowed' });
   } else {
     res.setHeader('Access-Control-Request-Method', 'POST');
     res.setHeader('Access-Control-Request-Headers', origin);
@@ -211,7 +214,7 @@ module.exports = (req, res) => {
     );
     placesQuery = axios({
       method: 'get',
-      url,
+      url
     });
   }
   placesQuery
