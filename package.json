@@ -36,7 +36,7 @@
     "sirv-cli": "^0.4.5"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "locale": "^0.1.0",
     "localforage": "^1.7.3",
