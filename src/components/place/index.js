@@ -14,6 +14,7 @@ export default class Place extends Component {
       collapsed: true,
       favorite: false,
       toiletPaperAmount: -1,
+      covidTestAmount: -1,
       fetching: false
     };
   }
@@ -23,7 +24,8 @@ export default class Place extends Component {
     if (
       collapsed === false &&
       this.props.place.name.indexOf('dm-drogerie') !== -1 &&
-      this.state.toiletPaperAmount === -1
+      this.state.toiletPaperAmount === -1 &&
+      this.state.covidTestAmount === -1
     ) {
       this.setState({ collapsed, fetching: true });
       const query = `/api/toiletpaper?type=dm&place_id=${this.props.place.place_id}`;
@@ -45,6 +47,29 @@ export default class Place extends Component {
           toiletPaperAmount: -1,
           fetching: false
         }));
+        
+        // now get covid tests
+        this.setState({ collapsed, fetching: true });
+        const query = `/api/covidtests?type=dm&place_id=${this.props.place.place_id}`;
+        fetch(query, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) =>
+            response.status === 200 ? response.json() : { amount: -1 }
+          )
+          .then((data) =>
+            this.setState({
+              covidTestAmount: data.amount,
+              fetching: false
+            })
+          ).catch(() => this.setState({
+            covidTestAmount: -1,
+            fetching: false
+          }));
+
     } else {
       this.setState({ collapsed });
     }
@@ -222,6 +247,16 @@ export default class Place extends Component {
               </p>
             </div>
           ) : null}
+
+          {covidTestAmount > -1 || fetching ? (
+            <div class={style.toiletpaper}>
+              <img class={fetching ? style.bounce : style.noBounce} src="/assets/covidtest.svg" />
+              <p>
+                { covidTestAmount > -1 ? <CountUp>{covidTestAmount}</CountUp> : null }
+              </p>
+            </div>
+          ) : null}
+          
           <button
             class="btn primary"
             onClick={(e) => this.openMaps(e, place.place_id)}
