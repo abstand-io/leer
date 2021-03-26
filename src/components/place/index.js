@@ -50,8 +50,8 @@ export default class Place extends Component {
         
         // now get covid tests
         this.setState({ collapsed, fetching: true });
-        const query = `/api/covidtest?type=dm&place_id=${this.props.place.place_id}`;
-        fetch(query, {
+        const query_covidtest = `/api/covidtest?type=dm&place_id=${this.props.place.place_id}`;
+        fetch(query_covidtest, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
