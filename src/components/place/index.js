@@ -50,7 +50,7 @@ export default class Place extends Component {
         
         // now get covid tests
         this.setState({ collapsed, fetching: true });
-        const query = `/api/covidtests?type=dm&place_id=${this.props.place.place_id}`;
+        const query = `/api/covidtest?type=dm&place_id=${this.props.place.place_id}`;
         fetch(query, {
           method: 'GET',
           headers: {
@@ -256,7 +256,7 @@ export default class Place extends Component {
               </p>
             </div>
           ) : null}
-          
+
           <button
             class="btn primary"
             onClick={(e) => this.openMaps(e, place.place_id)}
