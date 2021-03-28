@@ -15,7 +15,8 @@ export default class Place extends Component {
       favorite: false,
       toiletPaperAmount: -1,
       covidTestAmount: -1,
-      fetching: false
+      fetching: false,
+      noChartData: false,
     };
   }
 
@@ -28,48 +29,35 @@ export default class Place extends Component {
       this.state.covidTestAmount === -1
     ) {
       this.setState({ collapsed, fetching: true });
-      const query = `/api/toiletpaper?type=dm&place_id=${this.props.place.place_id}`;
-      fetch(query, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) =>
-          response.status === 200 ? response.json() : { amount: -1 }
-        )
-        .then((data) =>
-          this.setState({
-            toiletPaperAmount: data.amount,
-            fetching: false
-          })
-        ).catch(() => this.setState({
-          toiletPaperAmount: -1,
-          fetching: false
-        }));
-        
-        // now get covid tests
-        this.setState({ collapsed, fetching: true });
-        const query_covidtest = `/api/covidtest?type=dm&place_id=${this.props.place.place_id}`;
-        fetch(query_covidtest, {
+      const dmQuery = fetch(
+        `/api/dm?type=dm&place_id=${this.props.place.place_id}`,
+        {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-        })
-          .then((response) =>
-            response.status === 200 ? response.json() : { amount: -1 }
-          )
-          .then((data) =>
-            this.setState({
-              covidTestAmount: data.amount,
-              fetching: false
-            })
-          ).catch(() => this.setState({
-            covidTestAmount: -1,
-            fetching: false
-          }));
+        }
+      ).then((response) =>
+        response.status === 200 ? response.json() : { amount: -1 }
+      );
 
+      dmQuery
+        .then((data) =>
+          this.setState({
+            toiletPaperAmount:
+              data.toiletPaperAmount < 0 ? 0 : data.toiletPaperAmount,
+            covidTestAmount:
+              data.covidTestAmount < 0 ? 0 : data.covidTestAmount,
+            fetching: false,
+          })
+        )
+        .catch(() =>
+          this.setState({
+            toiletPaperAmount: -1,
+            covidTestAmount: -1,
+            fetching: false,
+          })
+        );
     } else {
       this.setState({ collapsed });
     }
@@ -127,6 +115,17 @@ export default class Place extends Component {
       const weekday = today.getDay();
       const weekHours = week[weekday];
       const hours = today.getHours();
+      if (
+        weekHours == null ||
+        weekHours.hours == null ||
+        weekHours.hours.length === 0
+      ) {
+        this.setState({
+          noChartData: true,
+        });
+        canvas.style.display = 'none';
+        return;
+      }
       const ctx = canvas.getContext('2d');
       const options = {
         type: 'bar',
@@ -211,9 +210,19 @@ export default class Place extends Component {
     );
   };
 
-  render({ place }, { collapsed, favorite, toiletPaperAmount, fetching }) {
+  render(
+    { place },
+    {
+      collapsed,
+      noChartData,
+      favorite,
+      toiletPaperAmount,
+      covidTestAmount,
+      fetching,
+    }
+  ) {
     return (
-      <div class={style.place} onClick={this.toggleCollapsed}>
+      <div class={style.place} onClick={() => this.toggleCollapsed()}>
         <div class={style.placeHeader}>
           <div class={this.toStatus(place)}></div>
           <div class={style.placeDetails}>
@@ -239,24 +248,38 @@ export default class Place extends Component {
         <div class={collapsed ? style.moreCollapsed : style.more}>
           {place.now ? <span class={style.live}>live</span> : null}
           <canvas ref={this.ref} width="400" height="120"></canvas>
-          {toiletPaperAmount > -1 || fetching ? (
-            <div class={style.toiletpaper}>
-              <img class={fetching ? style.bounce : style.noBounce} src="/assets/toiletpaper.svg" />
-              <p>
-                { toiletPaperAmount > -1 ? <CountUp>{toiletPaperAmount}</CountUp> : null }
-              </p>
-            </div>
-          ) : null}
+          {noChartData && (
+            <p class={style.nodata}>No data available for this day.</p>
+          )}
+          <div class={style.extra}>
+            {toiletPaperAmount > -1 || fetching ? (
+              <div class={style.toiletpaper}>
+                <img
+                  class={fetching ? style.bounce : style.noBounce}
+                  src="/assets/toiletpaper.svg"
+                />
+                <p>
+                  {toiletPaperAmount > -1 ? (
+                    <CountUp>{toiletPaperAmount}</CountUp>
+                  ) : null}
+                </p>
+              </div>
+            ) : null}
 
-          {covidTestAmount > -1 || fetching ? (
-            <div class={style.toiletpaper}>
-              <img class={fetching ? style.bounce : style.noBounce} src="/assets/covidtest.svg" />
-              <p>
-                { covidTestAmount > -1 ? <CountUp>{covidTestAmount}</CountUp> : null }
-              </p>
-            </div>
-          ) : null}
-
+            {covidTestAmount > -1 || fetching ? (
+              <div class={style.toiletpaper}>
+                <img
+                  class={fetching ? style.bounce : style.noBounce}
+                  src="/assets/covidtest.svg"
+                />
+                <p>
+                  {covidTestAmount > -1 ? (
+                    <CountUp>{covidTestAmount}</CountUp>
+                  ) : null}
+                </p>
+              </div>
+            ) : null}
+          </div>
           <button
             class="btn primary"
             onClick={(e) => this.openMaps(e, place.place_id)}
