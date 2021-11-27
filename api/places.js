@@ -2,12 +2,15 @@ const axios = require('axios');
 const locale = require('locale');
 
 const API_KEY = process.env.API_KEY;
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS.split(',').map(o => o.startsWith('/') ? new RegExp(o.slice(1)) : o);
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS.split(',').map((o) =>
+  o.startsWith('/') ? new RegExp(o.slice(1)) : o
+);
 const SUPPORTED_LOCALES = new locale.Locales(['en', 'de']);
 
-const getPlacesUrl = (lat, lon, r, f, c, key) => c === 'de' && f === 'hardware_store'
-  ? `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&keyword=baumarkt&key=${key}`
-  : `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&type=${f}&key=${key}`;
+const getPlacesUrl = (lat, lon, r, f, c, key) =>
+  c === 'de' && f === 'hardware_store'
+    ? `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&keyword=baumarkt&key=${key}`
+    : `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=${r}&type=${f}&key=${key}`;
 
 const busyHours = async (place) => {
   if (!place) {
@@ -194,7 +197,10 @@ module.exports = (req, res) => {
   if (body.favorites) {
     placesQuery = Promise.resolve({
       data: {
-        results: body.favorites.map(f => ({ ...f, opening_hours: { open_now: true } })),
+        results: body.favorites.map((f) => ({
+          ...f,
+          opening_hours: { open_now: true },
+        })),
       },
     });
   } else {
@@ -214,11 +220,19 @@ module.exports = (req, res) => {
     );
     placesQuery = axios({
       method: 'get',
-      url
+      url,
     });
   }
   placesQuery
     .then((response) => {
+      const { data } = response;
+      if (data == null || data.status !== 'OK') {
+        throw new Error(
+          `${data ? data.status : 'UNKOWN STATUS'}: ${
+            data && data.error_message ? data.error_message : 'Unknown error'
+          }`
+        );
+      }
       const places = response.data.results.map((place) =>
         busyHours(place, API_KEY)
       );
@@ -239,20 +253,22 @@ module.exports = (req, res) => {
       });
     })
     .catch((err) => {
-      if (error.response) {
+      if (err.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+        res.status(500).send({ error: err.response });
+      } else if (err.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        console.log(error.request);
+        res.status(500).send({ error: 'Received no response' });
       } else {
         // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
+        console.log('Error', err.message);
+        res.status(500).send({ error: err.message });
       }
     });
 };
